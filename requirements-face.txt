@@ -9,5 +9,14 @@ numpy==2.2.6
 pillow==12.2.0
 matplotlib==3.10.9
 requests==2.34.2
-opencv-python==5.0.0.93
-ipykernel==7.2.0
+opencv-python==5.0.0.93  # notebook uniquement
+ipykernel==7.2.0         # notebook uniquement
+
+# Application web
+fastapi==0.151.0
+uvicorn[standard]==0.54.0
+python-multipart==0.0.32
+
+# Tests
+pytest==9.1.1
+httpx==0.28.1

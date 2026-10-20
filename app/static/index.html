@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vérification d'identité</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Vérification d'identité</h1>
+      <ol class="etapes">
+        <li id="etape-identite" class="active">1. Photo d'identité</li>
+        <li id="etape-verification">2. Vérification</li>
+        <li id="etape-resultat">3. Résultat</li>
+      </ol>
+    </header>
+
+    <!-- Accueil : choix de la caméra -->
+    <section id="accueil" class="carte">
+      <p>
+        Trois photos vont être prises automatiquement : <strong>de face</strong>,
+        <strong>profil gauche</strong> et <strong>profil droit</strong>
+        (tête tournée d'environ 30 à 45°). Tenez simplement la pose demandée.
+      </p>
+      <label for="camera">Caméra</label>
+      <select id="camera"></select>
+      <button id="btn-commencer" disabled>Commencer</button>
+      <p id="erreur-camera" class="erreur" hidden></p>
+    </section>
+
+    <!-- Prise de vue -->
+    <section id="prise" class="carte" hidden>
+      <h2 id="titre-serie"></h2>
+      <div class="video">
+        <video id="video" autoplay playsinline muted></video>
+        <div id="consigne" class="consigne"></div>
+        <div class="progression"><div id="barre"></div></div>
+        <div id="flash" class="flash"></div>
+      </div>
+      <p id="etat" class="etat"></p>
+      <ul id="vignettes" class="vignettes"></ul>
+      <ul id="erreurs" class="erreur" hidden></ul>
+      <button id="btn-annuler" class="secondaire">Annuler</button>
+    </section>
+
+    <!-- Résultat -->
+    <section id="resultat" class="carte" hidden>
+      <h2 id="verdict"></h2>
+      <p id="score"></p>
+      <table>
+        <thead><tr><th>Pose</th><th>Identité</th><th>Vérification</th><th>Distance</th></tr></thead>
+        <tbody id="tableau"></tbody>
+      </table>
+      <button id="btn-recommencer">Recommencer</button>
+    </section>
+  </main>
+  <canvas id="canvas" hidden></canvas>
+  <script src="/static/app.js"></script>
+</body>
+</html>
