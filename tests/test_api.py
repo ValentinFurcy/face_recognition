@@ -73,9 +73,11 @@ def test_verification_enrolement_inconnu():
 
 def test_parcours_complet(monkeypatch):
     """Enrôlement puis vérification, avec une validation de série simulée."""
+    identique = np.zeros(512, dtype=np.float32)
+    identique[0] = 1
     encodages = iter([
-        {p: np.zeros(128) for p in analyse.POSES},       # série identité
-        {p: np.full(128, 0.01) for p in analyse.POSES},  # série vérification, même personne
+        {p: identique for p in analyse.POSES},  # série identité
+        {p: identique for p in analyse.POSES},  # série vérification, même personne
     ])
     monkeypatch.setattr(analyse, "valider_serie", lambda photos: (True, [], next(encodages)))
 
@@ -89,7 +91,7 @@ def test_parcours_complet(monkeypatch):
 
 
 def test_enrolement_expire(monkeypatch):
-    monkeypatch.setattr(analyse, "valider_serie", lambda photos: (True, [], {p: np.zeros(128) for p in analyse.POSES}))
+    monkeypatch.setattr(analyse, "valider_serie", lambda photos: (True, [], {p: np.ones(512) for p in analyse.POSES}))
     enrolement_id = client.post("/api/enrolement", files=serie()).json()["enrolement_id"]
 
     monkeypatch.setattr(main, "DUREE_VIE_ENROLEMENT", -1)

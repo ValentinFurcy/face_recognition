@@ -1,0 +1,17 @@
+# Application web (Python 3.12) — moteur InsightFace, aucune compilation nécessaire.
+# Les modèles (buffalo_l + addon liveness, ~280 Mo) sont téléchargés au premier lancement
+# dans ~/.insightface. Licence des modèles : usage non commercial.
+insightface==2.1
+onnxruntime==1.31.0
+opencv-python==5.0.0.93
+scikit-image==0.26.0
+numpy==2.2.6
+pillow==12.2.0
+
+fastapi==0.151.0
+uvicorn[standard]==0.54.0
+python-multipart==0.0.32
+
+# Tests
+pytest==9.1.1
+httpx==0.28.1

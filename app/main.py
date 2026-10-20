@@ -12,6 +12,7 @@ l'enrôlement sont gardées en mémoire, pendant DUREE_VIE_ENROLEMENT secondes.
 import threading
 import time
 import uuid
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Literal
 
@@ -27,7 +28,14 @@ MAX_ENROLEMENTS = 1000
 
 DOSSIER_STATIC = Path(__file__).parent / "static"
 
-app = FastAPI(title="Vérification d'identité")
+@asynccontextmanager
+async def cycle_de_vie(_app):
+    # Charge les modèles au démarrage plutôt qu'à la première requête
+    analyse.charger_modele()
+    yield
+
+
+app = FastAPI(title="Vérification d'identité", lifespan=cycle_de_vie)
 app.mount("/static", StaticFiles(directory=DOSSIER_STATIC), name="static")
 
 # enrolement_id -> (instant de création, encodages par pose)
